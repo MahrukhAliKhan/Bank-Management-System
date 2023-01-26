@@ -1,0 +1,682 @@
+// UHJMBB.cpp : Defines the entry point for the console application.
+//
+#include "stdafx.h"
+#include<iostream>
+#include<string>
+using namespace std;
+struct account
+{
+string name; 
+int CustAc;
+double Balance; 
+};
+account per1;
+//Function Declaration
+void deposit (void);
+void withdrawl (void);
+void F_Balance (void);
+int _tmain(int argc, _TCHAR* argv[])
+{	
+int i; //Selecting option
+char A; //Permission
+int o; //Account number
+per1.name = "client";
+per1.Balance = 3000;
+per1.CustAc = 1011002;
+
+cout << "Please enter your account number "<< endl;
+L2: //goto label
+cin >> o ;
+
+if (o == per1.CustAc)
+{
+	cout<<""<<endl;
+cout << "\t\t*********************WELCOME TO BANK MANAGEMENT SYSTEM*********************** " << endl;
+L1: //goto label
+cout<<"\tplease choose:\n\n \t1- Deposit. 2- Withdrawl. 3- Check your balance. : ";
+cin>>i;
+switch (i)  // function calling
+{
+case(1):
+	deposit();
+	break;
+case(2):
+	withdrawl();
+	break;
+case(3): 
+	F_Balance();
+	break;
+default:
+cout<<" wrong entery, please try again\n";
+goto L1; 
+}
+}
+else
+{
+cout << " please enter a valid account number "<< endl;
+goto L2;
+}
+cout<<"Do you like to continue? [Y / N] ";
+cin>>A;
+if ((A=='Y') || (A=='y'))
+{
+goto L1;
+}
+cout<<"Thank you\n";
+system("pause"); 
+	return 0;
+}
+//function definition
+void deposit (void)  
+{
+int k;
+cout<< "please enter the value to deposit" << endl;
+cin >> k;
+cout << " your balance now is: " << per1.Balance + k << endl;
+per1.Balance= per1.Balance+k;   //updating previous value
+}
+void withdrawl (void)
+{
+int w;
+cout<< "please enter the value to withdrawl" << endl;
+cin >> w;
+cout << " your balance now is: " << per1.Balance - w  << endl;
+per1.Balance= per1.Balance-w; //updating previous value
+}void F_Balance (void)
+{
+cout << " your balance is : " << per1.Balance << endl;
+}
+
+
+
+
+
+
+PPPPPPPPPPPPPRRRRRRRROOOOOOOOJJJJJJJJJJEEEEEEECTTTTTTTTTT::
+// project_bank.cpp : Defines the entry point for the console application.
+//
+#include "stdafx.h"
+#include<iostream>
+#include<string>
+using namespace std;
+class Bank                                              // Base class
+{  protected:
+   char bank_name[100];
+   char branch_code[100];
+   char location[1000];
+   string s1;
+   public:
+   Bank ()                                             // default constructor 
+   { strcpy_s(bank_name,"\0");
+     strcpy_s(branch_code,"\0");
+     strcpy_s(location,"\0");
+   }
+   Bank(char bname[], char bcode[],char blocation[] )  // parametrized constructor
+   {  strcpy_s(bank_name,bname);
+     strcpy_s(branch_code,bcode);
+     strcpy_s(location,blocation);
+   }
+   void get_information ()
+   { cout<<" Enter the name of the Bank :: ";
+     cin>>bank_name;
+	 cout<<" Enter the Branch code :: ";
+	 cin>>branch_code;
+	 cout<<" Enter the location of the Bank :: ";
+	 cin>>location;
+   }
+   void display ()
+   { cout<<"****  NAME OF BANK  ****"<<endl;
+     cout<<"    "<<bank_name<<"    "<<endl;
+     cout<<"****  BRANCH CODE OF THE BANK  ****"<<endl;
+     cout<<"    "<<branch_code<<"    "<<endl; 
+     cout<<"****  NAME OF BANK  ****"<<endl;
+     cout<<"    "<<location<<"    "<<endl;
+   }
+
+
+
+
+
+};
+class bank_employee : public Bank
+{   private:
+	int ID;
+    protected:
+	char name[100];
+	char address[100];
+	long contact ;
+	int salary;
+    public:
+	bank_employee():Bank(),ID(0), contact(0), salary(0)
+	{ strcpy_s(name,"\0");
+     strcpy_s(address,"\0");
+	}
+	bank_employee(char bname[], char bcode[],char blocation[], int empID, char empname[], char empaddress[], long c, int s):Bank(bname,bcode,blocation),ID(empID), contact(c), salary(s)
+	{ strcpy_s(name,empname);
+      strcpy_s(address,empaddress);
+	}
+	void get_information ()
+	{ cout<<" Enter the Name of the Employee :: ";
+     cin>>name;
+	 cout<<" Enter the ID Number of the Employee :: ";
+	 cin>>ID;
+	 cout<<" Enter the Address of the Employee :: ";
+	 cin>>address;
+	 cout<<" Enter the Contact of the Employee :: ";
+     cin>>contact;
+	 }
+
+	void calculate_salary ()
+	{ int hours;
+	  int extra_hours;
+	  int salary_per_day;
+	  int bonus ;
+	  for (int i= 0;i<5;i++)
+	  {  bank_employee::get_information();
+		  cout<<" Enter the working hours in a day ";
+	  cin>>hours;
+	  cout<<" Enter the Salary_Per_Day ";
+	  cin>>salary_per_day;
+	  cout<<" Enter the Extra_hours of working in a month ";
+	  cin>>extra_hours;
+	  if (extra_hours==0)
+	  {    bonus =0;
+		  salary = (hours*salary_per_day)+bonus;
+		  cout<<"**** The Calculated Salary is :: ";
+		  cout<<salary<<endl;
+       }
+	  else if ((extra_hours>0)&&(extra_hours<=10))
+	  {    bonus =5000;
+		  salary = (hours*salary_per_day)+bonus;
+		  cout<<"**** The Calculated Salary is :: ";
+		  cout<<salary<<endl;
+       }
+	  else if ((extra_hours>10)&&(extra_hours<=15))
+	  {    bonus =7000;
+		  salary = (hours*salary_per_day)+bonus;
+		  cout<<"**** The Calculated Salary is :: ";
+		  cout<<salary<<endl;
+       }
+	  else if ((extra_hours>16)&&(extra_hours<=20))
+	  {    bonus =10000;
+		  salary = (hours*salary_per_day)+bonus;
+		  cout<<"**** The Calculated Salary is :: ";
+		  cout<<salary<<endl;
+       }
+	  else if (extra_hours>21)
+	  {  cout<<" GOOD JOB "<<endl;
+		  cout<<" The bank will go through your progress report and will list your name in promotion file. "<<endl;
+	    
+	  }
+	  else 
+	  { cout<<"  INVALID ENTRY  "<<endl<<" You have entered an invalid character please try again "<<endl;
+	    cout<<" Regards "<<endl;
+	  }
+	}
+	}
+	  void display ()
+	  { cout<<"****  RECORD OF EMPLOYEE  ****"<<endl;
+        cout<<"****  NAME   ****"<<endl;
+        cout<<"    "<<name<<"    "<<endl; 
+        cout<<"****  ID NUMBER  ****"<<endl;
+        cout<<"    "<<ID<<"    "<<endl;
+		cout<<"****  ADDRESS  ****"<<endl;
+        cout<<"    "<<address<<"    "<<endl;
+        cout<<"****  CONTACT NUMBER  ****"<<endl;
+        cout<<"    "<<contact<<"    "<<endl; 
+        cout<<"****  SALARY  ****"<<endl;
+        cout<<"    "<<salary<<"    "<<endl;
+      }
+
+	
+
+};
+class ATMs : public Bank
+{   protected:
+	long pin;   // pin number of the customer
+	char operator_name[100];
+	long withdraw_money ;  // Money to be with drawn
+	long balance ;
+    public:
+    ATMs():Bank(),pin(0),withdraw_money(0)
+	{strcpy_s(operator_name,"\0");}
+	ATMs(char bname[], char bcode[],char blocation[],long p, char opename[],long money, long b):Bank(bname,bcode,blocation),pin(p),withdraw_money(money),balance(b)
+	{strcpy_s(operator_name,opename);}
+	void pin_verification ()
+	{  cout<<" Please enter your pin number :: "<<endl;
+	   cin>>pin;
+	   cout<<endl;
+		if ((pin==5151)||(pin==6165)||(pin==7175)||(pin==8185)||(pin==9195))
+	{    cout<<" PIN Number is verified "<<endl;}
+	else 
+	{cout<<" You had entered invalid PIN Number "<<endl;
+	 cout<<" Please try again and enter the correct PIN Number "<<endl;}
+	}
+	void transaction_details ()    // function for withdrawing money 
+	{ cout<<" Please enter your name ::";
+	  cin>>operator_name;
+	  cout<<endl;
+	  cout<<" Balance of your account ::";
+	  cin>>balance;
+	  cout<<" Please enter the amount of money you want to withdraw ::";
+	  cin>>withdraw_money;
+	  if(withdraw_money<balance)
+	  { balance = balance - withdraw_money;
+	    cout<<" Now your remaining balance is ::"<<balance<<endl;
+	  }
+	  else 
+	  { cout<<" Your entered amount is greater than your balance "<<endl;
+	    cout<<" Please try again "<<endl;
+	  }
+
+	}
+
+	void change_pin ()
+	{ int choice;
+	  cout<<" Do you want to chnage your PIN Number "<<endl;
+	  cout<<" If yes than Enter 1 otherwise enter 0 ::";
+	  cin>>choice;
+	  if (choice==1)
+	  { cout<<" Enter the new PIN Number ::";
+	    cin>>pin;
+		cout<<endl;
+	  }
+	  else if (choice == 0)
+	  { 	  }
+	  else 
+	  { cout<<" You had entered some wrong number "<<endl<<" Please try again "<<endl;
+	  }
+	}
+	void end_session () 
+	{ char date_of_issue[100];
+	  char expiry_date[100];
+	  int validity_years=5;
+	  cout<<" Enter the year of issuing card :: ";
+	  cin>>date_of_issue;
+	  cout<<endl;
+	  cout<<" Enter the expiry year of ATM card :: ";
+	  cin>>expiry_date;
+	  cout<<endl;
+	  if ((date_of_issue-expiry_date)<=validity_years)
+	  { cout<<" Your card is valid you can withdraw money "<<endl;
+	  }
+	  else 
+	  { cout<<" Your card had expired, you can withdraw money "<<endl;}
+	}
+};
+class contact : public Bank
+{  public:
+	void help ()
+  { int choice =0;
+	cout<<" Well Come to our helpline "<<endl;
+	cout<<"Enter 1 for helpline of Rawalpindi branch "<<endl;
+	cout<<"Enter 2 for helpline of Karachi branch "<<endl;
+	cout<<"Enter 3 for helpline of Peshawar branch "<<endl;
+	cout<<"Enter 4 for helpline of Quetta branch "<<endl;
+    cout<<"Enter 5 for helpline of Islamabad branch "<<endl;
+	cin>>choice;
+	if(choice==1)
+	{ cout<<" Contact Number :: +92 335 7816543 "<<endl;
+	  cout<<" Gmail :: helpline.pk@gmail.com "<<endl;
+	  cout<<" Opening Time Of Bank :: 9:00 AM "<<endl;
+	  cout<<" Break Time Of Bank :: 11:30AM - 1:00PM "<<endl;
+	  cout<<" Closing Time Of Bank :: 8:00 PM "<<endl;
+	}
+	else if (choice==2)
+	{ cout<<" Contact Number :: +92 335 7817853 "<<endl;
+	  cout<<" Gmail :: helpline.pk@gmail.com "<<endl;
+	  cout<<" Opening Time Of Bank :: 9:00 AM "<<endl;
+	  cout<<" Break Time Of Bank :: 11:00AM - 2:00PM "<<endl;
+	  cout<<" Closing Time Of Bank :: 7:00 PM "<<endl;
+	}
+	else if (choice==3)
+	{cout<<" Contact Number :: +92 335 4562870 "<<endl;
+	  cout<<" Gmail :: helpline.pk@gmail.com "<<endl;
+	  cout<<" Opening Time Of Bank :: 9:00 AM "<<endl;
+	  cout<<" Break Time Of Bank :: 11:00AM - 1:30PM "<<endl;
+	  cout<<" Closing Time Of Bank :: 9:00 PM "<<endl;
+	}
+	else if (choice==4)
+	{cout<<" Contact Number :: +92 335 4567321 "<<endl;
+	  cout<<" Gmail :: helpline.pk@gmail.com "<<endl;
+	  cout<<" Opening Time Of Bank :: 8:00 AM "<<endl;
+	  cout<<" Break Time Of Bank :: 11:00AM - 2:00PM "<<endl;
+	  cout<<" Closing Time Of Bank :: 9:00 PM "<<endl;
+	}
+	else if (choice==5)
+	{cout<<" Contact Number :: +92 334 4567330 "<<endl;
+	  cout<<" Gmail :: helpline.pk@gmail.com "<<endl;
+	  cout<<" Opening Time Of Bank :: 9:00 AM "<<endl;
+	  cout<<" Break Time Of Bank :: 11:30AM - 1:30PM "<<endl;
+	  cout<<" Closing Time Of Bank :: 10:00 PM "<<endl;
+	}
+	else 
+	{ cout<<" You had entered an invalid number "<<endl;
+	  cout<<" Please try again "<<endl;
+	}
+  }
+
+};
+class Accounts : public Bank
+{  protected:
+   long acc_numb;
+   float acc_balance;
+   char name[100];
+   char acc_type [100];
+   char branch_location [100]; 
+   public:
+   Accounts():Bank() // default constructor 
+   { strcpy_s(name,"\0");
+	 strcpy_s(acc_type,"\0");
+    strcpy_s(branch_location,"\0");}
+   Accounts (char bname[], char bcode[],char blocation[], char acc[], char branchloc[],char namee[], float b, long account_num):Bank(bname,bcode,blocation),acc_balance(b),acc_numb(account_num)
+   { strcpy_s(name,namee);
+	   strcpy_s(acc_type,acc);
+    strcpy_s(branch_location,branchloc);}
+   
+  virtual void get_data ()=0;
+  virtual void display ()=0;
+  virtual void calculation()=0;
+  void put_data ()
+  {  Bank::get_information();
+	  cout<<"Enter your name : ";
+     cin>>name;
+      cout<<" Enter the type of account :: ";
+	  cin>>acc_type;
+	  cout<<endl;
+	  cout<<" Enter the location of the branch :: ";
+	  cin>>branch_location;
+	  cout<<endl;
+	 cout<<"Enter the account balance : ";
+	 cin>>acc_balance;
+	 cout<<endl;
+  }
+    void show_data ()
+	{ Bank::display();
+	  cout<<"** NAME **"<<endl;
+	cout<<"   "<<name<<endl;
+	cout<<"** ACCOUNT BALANCE **"<<endl;
+	cout<<"   "<<acc_balance<<endl;
+    cout<<"** ACCOUNT TYPE **"<<endl;
+    cout<<"   "<<acc_type<<endl;
+	cout<<"** BRANCH LOCATION **"<<endl;
+    cout<<"   "<<acc_type<<endl;
+  }
+
+  void credit ()
+  { float balance=0;
+    cout<<"Enter the amount of balance you wanted to add in your account : ";
+	cin>>balance;
+	acc_balance=acc_balance+balance;
+	cout<<"Now your Account Balance is : "<<acc_balance;
+    cout<<endl;  
+  }
+  void debit ()
+  { float c;
+    cout<<"Enter the amount of balance you wanted to Withdraw from your account : ";
+	cin>>c;
+	cout<<endl;
+	if (c>acc_balance)
+	{
+	 cout<<" Your Withdraw amount is greater than the account balance "<<endl;
+	 cout<<" You cannot withdraw this amount "<<endl;
+	 cout<<"Please enter the amount again"<<endl;
+	}
+	else 
+	{ acc_balance= acc_balance-c;
+	  cout<<"Now your Account Balance is : "<<acc_balance;
+	cout<<endl;
+	}
+  }
+
+  };
+
+class statement : public Accounts
+{
+
+
+
+};
+class current_account : public Accounts
+{   protected:
+    int fixed_fee;
+    int PIN;
+    public:
+	current_account(): Accounts(), fixed_fee(0),PIN(0)
+	{}
+	current_account(char bname[], char bcode[],char blocation[], char acc[], char branchloc[],char namee[], float b, long account_num ,int f, int p):Accounts( bname,  bcode, blocation,  acc,  branchloc, namee,  b, account_num ), fixed_fee(f), PIN(p)
+	{}
+	void get_data()
+	{ cout<<"** Current Account **"<<endl;
+      Accounts::put_data();
+	  cout<<endl;
+	  cout<<" Enter you Account Number :: ";
+	  cin>>acc_numb;
+	  cout<<" Enter you PIN :: ";
+	  cin>>PIN;
+	  cout<<endl;
+	  cout<<" Bank will enter the fixed fee amount :: ";
+	  cin>>fixed_fee;
+	  cout<<endl;
+	}
+	void display ()
+	 { cout<<" ** Displaying the details of Current Account **"<<endl;
+      Accounts::show_data();
+	  cout<<endl;
+	  cout<<" ** ACCOUNT NUMBER ** "<<endl;
+	  cout<<"   "<<acc_numb<<endl;
+	  cout<<" ** PIN ** "<<endl;
+	  cout<<"   "<<PIN<<endl;
+	  cout<<" ** FIXED FEE AMOUNT ** "<<endl;
+	  cout<<fixed_fee<<endl;
+     }
+    void calculation ()
+	{ cout<<" Credit Function "<<endl;
+	  Accounts::credit();
+	  cout<<" Dedit Function "<<endl;
+	  Accounts::debit();
+	  acc_balance = acc_balance- fixed_fee;
+	  cout<<"Now your current balance after deducting fixed_fee is :: "<<acc_balance<<endl;
+	}
+};
+
+
+class saving_account : public Accounts
+{  protected:
+   int pin;
+   public:
+   saving_account():Accounts(),pin(0)
+   {}
+   saving_account(char bname[], char bcode[],char blocation[], char acc[], char branchloc[],char namee[], float b,long account_num,int p):Accounts(bname,  bcode, blocation,  acc,  branchloc, namee,  b, account_num ),pin(0)
+   {}
+   void get_data()
+   {  cout<<"** Saving Account **"<<endl;
+   Accounts::put_data();
+   cout<<endl;
+   cout<<" Enter your PIN :: ";
+   cin>>pin;
+   cout<<endl;
+   }
+   void display ()
+   { cout<<" ** Displaying the details of Saving Account **"<<endl;
+   Accounts::show_data();
+   cout<<" ** PIN NUMBER ** "<<endl;
+   cout<<pin;
+   cout<<endl;
+   }
+   void calculation ()
+   {   Accounts::credit();
+       Accounts::debit();
+       cout<<" Your minimum balance should be 500 "<<endl;
+       cout<<" Deduction of interest every year "<<endl;
+	   if (acc_balance>500)
+	   { acc_balance = acc_balance - 0.025;
+	     cout<<" Now your current balance is :: "<<acc_balance;
+		 cout<<endl;
+	   }
+	   else 
+	   { cout<<" Your account should contain a minimum balance of 500 "<<endl;
+	     cout<<" Add the minimum balance in the account or your account will be blocked "<<endl;
+	   }
+
+   }
+};
+
+class loan_account : public Accounts
+{   protected:
+	long loan_numb;
+    char loan_type[100];
+    public:
+	loan_account():Accounts(),loan_numb(0)
+	{strcpy(loan_type,"\0");
+	}
+	loan_account(char bname[], char bcode[],char blocation[], char acc[], char branchloc[],char namee[], float b,long account_num,long lnumb,char ltype[]):Accounts(bname,  bcode, blocation,  acc,  branchloc, namee,  b, account_num ),loan_numb(lnumb)
+	{strcpy(loan_type,ltype);
+	}
+    void get_data()
+	{ cout<<"** Loan Account **"<<endl;
+      Accounts::put_data();
+	  cout<<" Enter the loan number issued to you ::";
+	  cin>>loan_numb;
+	  cout<<" Enter the loan type ::";
+	  cin>>loan_type;}
+	void display ()
+	 { cout<<" ** Displaying the details of Loan Account **"<<endl;
+       Accounts::show_data();
+	   cout<<" ** LOAN NUMBER ** "<<endl;
+	   cout<<loan_numb<<endl;
+	   cout<<" ** LOAN_TYPE **"<<endl;
+	   cout<<loan_type<<endl;}
+};
+
+
+ class online_transaction :public Accounts
+ {   private:
+	 int cust_pin;   // pin number   
+     long CNIC_numb;
+	 long card_numb;
+	 char password[100];
+     public:
+	 online_transaction():Accounts(),cust_pin(0),CNIC_numb(0),card_numb(0)
+	 { strcpy_s(password,"\0");
+	 }
+	 online_transaction(char bname[], char bcode[],char blocation[], char acc[], char branchloc[],char namee[], float b,long account_num,int p,long cnic, long cardnumb, char passwordd[]):Accounts(),cust_pin(p),CNIC_numb(cnic),card_numb(cardnumb)
+	 { strcpy_s(password,passwordd);
+	 }
+
+	 void transaction ()
+	 {  cout<<"** ONLINE TRANSACTION **";
+		 Accounts::debit();
+		 cout<<endl;
+	 }
+    void get_data()
+	{ cout<<"** Online Transaction **"<<endl;
+      Accounts::put_data();
+	  cout<<" Enter the PIN Number ::";
+	  cin>>cust_pin;
+	  cout<<" Enter CNIC Number ::";
+	  cin>>CNIC_numb;
+	  cout<<" Enter the CARD Number ::";
+	  cin>>card_numb;
+	  cout<<" Enter password ::";
+	  cin>>password;
+	  if (password=="mano7175")
+	  { cout<<" You had entered correct password "<<endl;
+	    cout<<" You can do online transaction "<<endl;
+	  }
+	  else 
+	  { cout<<" You had entered wrong password "<<endl<<" Please try again "<<endl; }
+	}
+
+	void display ()
+	 { cout<<" ** Displaying the details of Online transaction **"<<endl;
+       Accounts::show_data();
+	   cout<<" ** PIN NUMBER ** "<<endl;
+	   cout<<cust_pin<<endl;
+	   cout<<" ** CNIC NUMBER **"<<endl;
+	   cout<<CNIC_numb<<endl;
+       cout<<" ** CARD NUMBER ** "<<endl;
+	   cout<<cust_pin<<endl;
+	   cout<<" ** REMAINING BALANCE ** "<<endl;
+	   cout<<acc_balance<<endl;
+	}
+ };
+
+ class customer 
+ { protected:
+   char cust_name[100];
+   int cust_id;
+   long cust_contact_numb;
+   char gmail[100];
+   char password[50];
+   char address[100];
+   char user_name[50];
+   public:
+   customer():cust_id(0), cust_contact_numb(0)
+   { strcpy_s( cust_name,"\0");
+     strcpy_s( gmail,"\0");
+	 strcpy_s( password,"\0");
+	 strcpy_s( address,"\0");
+	 strcpy_s( user_name,"\0");
+   }
+   customer(char name[], int id,long contactnumb, char g[], char p[], char a[], char usernamee[]  ):cust_id(id), cust_contact_numb(contactnumb)
+   { strcpy_s( cust_name,name);
+     strcpy_s( gmail,g);
+	 strcpy_s( password,p);
+	 strcpy_s( address,a);
+	 strcpy_s( user_name,usernamee);
+   }
+  void add_customer ()
+	{ cout<<" Enter the Customer Name ::";
+	  cin>>cust_name;
+	  cout<<endl;
+	  cout<<" Enter the Customer ID ::";
+	  cin>>cust_id;
+	  cout<<endl;
+	  cout<<" Enter the Customer Contact Number :: ";
+	  cin>>cust_contact_numb;
+	  cout<<endl;
+	  cout<<" Enter the Gmail :: ";
+	  cin>>gmail;
+	  cout<<endl;
+	  cout<<" Enter the Password :: ";
+	  cin>>cust_name;
+      cout<<endl;
+	  cout<<" Enter the Address :: ";
+	  cin>>gmail;
+	  cout<<endl;
+	  cout<<" Enter the User Name :: ";
+	  cin>>cust_name;
+	  cout<<endl;
+	}
+	void edit_customer ()
+	{   cout<<" ** Editing Customer Details ** "<<endl;
+		add_customer();
+	}
+	void search_customer ()
+	{ cout<<" ** Searching Customer ** "<<endl;
+	  cin>>cust_name;
+	  add_customer();
+	}
+ };
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{/*  Bank b1;
+b1.get_information();
+b1.display();
+  bank_employee o;
+  o.calculate_salary();
+  o.display();
+ATMs a;
+a.end_session();
+a.pin_verification();
+a.transaction_details();
+a.change_pin();*/
+	contact c;
+	c.help();
+
+    system("pause");
+	return 0;
+}
+
